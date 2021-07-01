@@ -4,6 +4,12 @@ variable "name" {
   default     = ""
 }
 
+variable "azs" {
+  description = "A list of availability zones names or ids in the region"
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
@@ -37,6 +43,25 @@ variable "enable_dns_support" {
 
 variable "vpc_tags" {
   description = "Additional tags for the VPC"
+  type        = map(string)
+  default     = {}
+}
+
+# private subnet
+variable "private_subnets" {
+  description = "A list of private subnets inside the VPC"
+  type        = list(string)
+  default     = []
+}
+
+variable "private_subnet_suffix" {
+  description = "Suffix to append to private subnets name"
+  type        = string
+  default     = "private"
+}
+
+variable "private_subnet_tags" {
+  description = "Additional tags for the private subnets"
   type        = map(string)
   default     = {}
 }
