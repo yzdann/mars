@@ -56,3 +56,25 @@ resource "aws_subnet" "private" {
     var.private_subnet_tags,
   )
 }
+
+resource "aws_subnet" "public" {
+  count = var.create_vpc && length(var.public_subnets) > 1 && (length(var.public_subnets) >= length(var.azs)) ? length(var.public_subnets) : 1
+
+  vpc_id                  = local.vpc_id
+  cidr_block              = var.public_subnets[count.index]
+  availability_zone       = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) > 0 ? element(var.azs, count.index) : null
+  availability_zone_id    = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) == 0 ? element(var.azs, count.index) : null
+  map_public_ip_on_launch = var.map_public_ip_on_launch
+
+  tags = merge(
+    {
+      "Name" = format(
+        "%s-${var.public_subnet_suffix}-%s",
+        var.name,
+        element(var.azs, count.index),
+      )
+    },
+    var.tags,
+    var.public_subnet_tags,
+  )
+}

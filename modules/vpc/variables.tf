@@ -65,3 +65,28 @@ variable "private_subnet_tags" {
   type        = map(string)
   default     = {}
 }
+
+# public subnet
+variable "public_subnets" {
+  description = "A list of public subnets inside the VPC"
+  type        = list(string)
+  default     = []
+}
+
+variable "map_public_ip_on_launch" {
+  description = "Should be false if you do not want to auto-assign public IP on launch"
+  type        = bool
+  default     = true
+}
+
+variable "public_subnet_suffix" {
+  description = "Suffix to append to public subnets name"
+  type        = string
+  default     = "public"
+}
+
+variable "public_subnet_tags" {
+  description = "Additional tags for the public subnets"
+  type        = map(string)
+  default     = {}
+}
