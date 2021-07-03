@@ -103,3 +103,10 @@ variable "igw_tags" {
   type        = map(string)
   default     = {}
 }
+
+# route table
+variable "public_route_table_tags" {
+  description = "Additional tags for the public route tables"
+  type        = map(string)
+  default     = {}
+}
